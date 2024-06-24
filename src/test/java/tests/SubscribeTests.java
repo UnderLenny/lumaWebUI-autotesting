@@ -10,8 +10,7 @@ import java.util.Map;
 
 import static com.codeborne.selenide.Condition.text;
 
-public class SubscribeTests extends BaseTest
-{
+public class SubscribeTests extends BaseTest {
     HomePage homePage = new HomePage();
     SubscribePage subscribePage = new SubscribePage();
 
