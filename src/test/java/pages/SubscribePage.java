@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import java.util.Map;
@@ -17,7 +18,6 @@ public class SubscribePage {
     private final SelenideElement positionInput = $(By.xpath("//input[@id='mce-POSITION']"));
     private final SelenideElement subscribeButton = $(By.xpath("//input[@value='Subscribe']"));
     private final SelenideElement successMessage = $(By.xpath("//div[@id='mce-success-response']"));
-
 
     public SubscribePage acceptModalWindow() {
         modalWindowData.shouldBe(Condition.visible).click();

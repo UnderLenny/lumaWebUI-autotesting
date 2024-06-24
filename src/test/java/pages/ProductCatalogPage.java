@@ -6,8 +6,7 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 
 public class ProductCatalogPage {
 
@@ -18,9 +17,11 @@ public class ProductCatalogPage {
     private final ElementsCollection products = $$("span[data-price-type='finalPrice'] span");
 
     private final SelenideElement selectSortBy = $(By.xpath("//*[@id=\"sorter\"]"));
-    private final SelenideElement nextPage = $(By.xpath("/html/body/div[2]/main/div[3]/div[1]/div[4]/div[2]/ul/li[3]/a")); // временное решение
+    private final SelenideElement nextPage = $$x("//*[@title='Next']").get(1); // временное решение
 
+    private final SelenideElement changePriceSort = $$x("//*[@title=\"Set Descending Direction\"]").get(0);
     private final SelenideElement noResultsMessage = $(By.xpath("//div[@class='message notice']"));
+
 
     public ProductCatalogPage hoverOverGearCategory() {
         gearCategory.hover();
@@ -57,14 +58,18 @@ public class ProductCatalogPage {
         return this;
     }
 
-    public boolean hasNextPage() {
-        try {
-            nextPage.shouldBe(Condition.visible);
-            return nextPage.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
+    public ProductCatalogPage clickToSetLowPrice() {
+        changePriceSort.click();
+        return this;
     }
+//    public boolean hasNextPage() {
+//        try {
+//            nextPage.shouldBe(Condition.visible);
+//            return nextPage.isDisplayed();
+//        } catch (NoSuchElementException e) {
+//            return false;
+//        }
+//    }
 
     public ProductCatalogPage clickNextPage() {
         nextPage.click();

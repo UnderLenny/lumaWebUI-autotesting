@@ -31,16 +31,14 @@ public class ProductCatalogTests extends BaseTest {
     }
 
     @Test
-    public void setSortByPrice() {
+    public void sortByHighPriceTest() {
         productCatalogPage
                 .hoverOverGearCategory()
                 .clickBagsSubcategory()
                 .clickSortByList();
 
         ElementsCollection productPrices = productCatalogPage.getProductPrices();
-        boolean isNextPage = productCatalogPage.hasNextPage();
         double previousPrice = 0;
-        while (isNextPage) {
             for (SelenideElement product : productPrices) {
                 String productString = product.getText();
                 String numberString = productString.replace("$", "");
@@ -48,11 +46,24 @@ public class ProductCatalogTests extends BaseTest {
                 assertTrue(number >= previousPrice, "Цена товара должна быть больше или равна предыдущей");
                 previousPrice = number;
             }
-            if(isNextPage) {
-                productCatalogPage.clickNextPage();
-                productPrices = productCatalogPage.getProductPrices();
-            }
-            isNextPage = productCatalogPage.hasNextPage();
+        }
+
+    @Test
+    public void sortByLowPriceTest() {
+        productCatalogPage
+                .hoverOverGearCategory()
+                .clickBagsSubcategory()
+                .clickSortByList()
+                .clickToSetLowPrice();
+
+        ElementsCollection productPrices = productCatalogPage.getProductPrices();
+        double previousPrice = 200.00;
+        for (SelenideElement product : productPrices) {
+            String productString = product.getText();
+            String numberString = productString.replace("$", "");
+            double number = Double.parseDouble(numberString);
+            assertTrue(number <= previousPrice, "Цена товара должна быть меньше или равна предыдущей");
+            previousPrice = number;
         }
     }
 
