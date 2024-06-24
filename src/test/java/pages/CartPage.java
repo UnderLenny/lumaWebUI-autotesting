@@ -3,6 +3,7 @@ package pages;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -15,18 +16,19 @@ public class CartPage {
     private final SelenideElement cart = $(By.xpath("//a[contains(@href, 'cart')]"));
 
     private final SelenideElement productNumberInCart = $(By.xpath("//span[contains(@data-bind, 'block')]"));
+    private final SelenideElement addedButton = $(By.xpath("//*[@title='Added']"));
 
 
     public SelenideElement getProductCard() {
         return productCard;
     }
 
-    public SelenideElement getProductName() {
-        return productName;
+    public String getProductName() {
+        return productName.getText();
     }
 
-    public SelenideElement getProductNameInCart() {
-        return productNameInCart;
+    public String getProductNameInCart() {
+        return productNameInCart.getText();
     }
 
     public CartPage clickOnProductCard() {
@@ -45,7 +47,7 @@ public class CartPage {
     }
 
     public CartPage checkNumberOnCartButton() {
-        productNameInCart.shouldBe(visible);
+        productNumberInCart.shouldBe(text("1"));
         return this;
     }
 }

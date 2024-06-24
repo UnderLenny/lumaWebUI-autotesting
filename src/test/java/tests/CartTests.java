@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import pages.CartPage;
 import pages.ProductCatalogPage;
 
+import java.util.Objects;
+
+import static com.codeborne.selenide.Condition.text;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CartTests extends BaseTest{
@@ -21,8 +24,8 @@ public class CartTests extends BaseTest{
                 .addProductToCart()
                 .checkNumberOnCartButton()
                 .clickOnCart();
-        String productName = String.valueOf(cartPage.getProductName());
-        String productNameInCart = String.valueOf(cartPage.getProductNameInCart());
-        assertEquals(productName, productNameInCart);
+            String productName = String.valueOf(cartPage.getProductName());
+            String productNameInCart = String.valueOf(cartPage.getProductNameInCart());
+            assertEquals(productName, productNameInCart);
+        }
     }
-}
