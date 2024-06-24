@@ -17,7 +17,7 @@ class BaseTest {
         WebDriverManager.chromedriver().setup();
         Configuration.baseUrl = "https://magento.softwaretestingboard.com";
         Configuration.browser = "chrome";
-        Configuration.browserSize="1200x900";
+        Configuration.browserSize="2560x1600";
         Configuration.holdBrowserOpen = true;
     }
 
