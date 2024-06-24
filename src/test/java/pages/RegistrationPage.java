@@ -2,24 +2,20 @@ package pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.$;
 
 public class RegistrationPage {
-    private final SelenideElement firstName = $("#firstname");
-    private final SelenideElement lastName = $("#lastname");
-    private final SelenideElement email = $("#email_address");
-    private final SelenideElement password = $("#password");
-    private final SelenideElement confirmPassword = $("#password-confirmation");
-    private final SelenideElement submitButton = $("button[title='Create an Account']");
-    private final SelenideElement errorText = $("div[data-bind='html: $parent.prepareMessageForHtml(message.text)'] a");
-
-    public RegistrationPage open() {
-        Selenide.open("https://magento.softwaretestingboard.com/customer/account/create/");
-        return this;
-    }
+    private final SelenideElement firstName = $(By.xpath("//*[@id='firstname']"));
+    private final SelenideElement lastName = $(By.xpath("//*[@id='lastname']"));
+    private final SelenideElement email = $(By.xpath("//*[@id='email_address']"));
+    private final SelenideElement password = $(By.xpath("//*[@id='password']"));
+    private final SelenideElement confirmPassword = $(By.xpath("//*[@id='password-confirmation']"));
+    private final SelenideElement submitButton = $(By.xpath("//button[@title='Create an Account']"));
+    private final SelenideElement errorText = $(By.xpath("//div[contains(@data-bind, 'text')]"));
 
     public RegistrationPage setFirstName(String name) {
         firstName.setValue(name);

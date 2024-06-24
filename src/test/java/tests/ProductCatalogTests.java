@@ -14,7 +14,7 @@ public class ProductCatalogTests extends BaseTest {
     ProductCatalogPage productCatalogPage = new ProductCatalogPage();
 
     @Test
-    public void setPriceFilter() {
+    public void filterProductsByPriceRange() {
         productCatalogPage
                 .hoverOverGearCategory()
                 .clickBagsSubcategory()
@@ -31,7 +31,7 @@ public class ProductCatalogTests extends BaseTest {
     }
 
     @Test
-    public void sortByHighPriceTest() {
+    public void sortProductsByHighPrice() {
         productCatalogPage
                 .hoverOverGearCategory()
                 .clickBagsSubcategory()
@@ -39,17 +39,17 @@ public class ProductCatalogTests extends BaseTest {
 
         ElementsCollection productPrices = productCatalogPage.getProductPrices();
         double previousPrice = 0;
-            for (SelenideElement product : productPrices) {
-                String productString = product.getText();
-                String numberString = productString.replace("$", "");
-                double number = Double.parseDouble(numberString);
-                assertTrue(number >= previousPrice, "Цена товара должна быть больше или равна предыдущей");
-                previousPrice = number;
-            }
+        for (SelenideElement product : productPrices) {
+            String productString = product.getText();
+            String numberString = productString.replace("$", "");
+            double number = Double.parseDouble(numberString);
+            assertTrue(number >= previousPrice, "Цена товара должна быть больше или равна предыдущей");
+            previousPrice = number;
         }
+    }
 
     @Test
-    public void sortByLowPriceTest() {
+    public void sortProductsByLowPrice() {
         productCatalogPage
                 .hoverOverGearCategory()
                 .clickBagsSubcategory()
@@ -68,7 +68,7 @@ public class ProductCatalogTests extends BaseTest {
     }
 
     @Test
-    public void searchInvalidProduct() {
+    public void searchForInvalidProduct() {
         homePage
                 .searchInvalidValue("testTest#");
 

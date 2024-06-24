@@ -12,9 +12,9 @@ public class ProductCatalogPage {
 
     private final SelenideElement gearCategory = $(By.xpath("//*[@id='ui-id-6']"));
     private final SelenideElement bagsSubcategory = $(By.xpath("//*[@id='ui-id-25']"));
-    private final ElementsCollection prices = $$("div[data-role='title']");
+    private final ElementsCollection prices = $$(By.xpath("//div[@data-role='title']"));
     private final SelenideElement priceRange = $(By.xpath("//a[@href='https://magento.softwaretestingboard.com/gear/bags.html?price=30-40']"));
-    private final ElementsCollection products = $$("span[data-price-type='finalPrice'] span");
+    private final ElementsCollection products = $$(By.xpath("//span[@data-price-type='finalPrice']/span"));
 
     private final SelenideElement selectSortBy = $(By.xpath("//*[@id=\"sorter\"]"));
     private final SelenideElement nextPage = $$x("//*[@title='Next']").get(1); // временное решение

@@ -16,7 +16,8 @@ public class CartPage {
     private final SelenideElement cart = $(By.xpath("//a[contains(@href, 'cart')]"));
 
     private final SelenideElement productNumberInCart = $(By.xpath("//span[contains(@data-bind, 'block')]"));
-    private final SelenideElement addedButton = $(By.xpath("//*[@title='Added']"));
+    private final SelenideElement processedButton = $(By.xpath("//button[contains(@title, 'Proceed')]"));
+
 
 
     public SelenideElement getProductCard() {
@@ -50,4 +51,11 @@ public class CartPage {
         productNumberInCart.shouldBe(text("1"));
         return this;
     }
+
+    public CartPage clickOnProccessedButton() {
+        processedButton.click();
+        return this;
+    }
+
+
 }

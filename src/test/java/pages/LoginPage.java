@@ -2,22 +2,18 @@ package pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.By;
 
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage {
-    private final SelenideElement email = $("#email");
-    private final SelenideElement password = $("#pass");
-    private final SelenideElement submitButton = $("#send2");
-    private final SelenideElement errorText = $("div[data-bind='html: $parent.prepareMessageForHtml(message.text)']");
+    private final SelenideElement email = $(By.xpath("//*[@id='email']"));
+    private final SelenideElement password = $(By.xpath("//input[@title='Password']"));
+    private final SelenideElement submitButton = $(By.xpath("//button[@class='action login primary']"));
+    private final SelenideElement errorText = $(By.xpath("//div[contains(@data-bind, 'text')]"));
 
-
-    public LoginPage open() {
-        Selenide.open("https://magento.softwaretestingboard.com/customer/account/login");
-        return this;
-    }
 
     public LoginPage enterEmail(String mail) {
         email.setValue(mail);
