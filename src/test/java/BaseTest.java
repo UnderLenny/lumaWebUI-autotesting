@@ -1,13 +1,13 @@
-import static org.junit.jupiter.api.Assertions.*;
+package tests;
 
 import com.codeborne.selenide.Configuration;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import static com.codeborne.selenide.Selenide.*;
 
 class BaseTest {
     WebDriver driver;
@@ -15,28 +15,19 @@ class BaseTest {
     @BeforeAll
     static void setupClass() {
         WebDriverManager.chromedriver().setup();
+        Configuration.baseUrl = "https://magento.softwaretestingboard.com";
         Configuration.browser = "chrome";
-        Configuration.browserSize="800x600";
-//        Configuration.headless = false;
+        Configuration.browserSize="1200x900";
     }
 
     @BeforeEach
-    void setupTest() {
-        driver = new ChromeDriver();
+    public void setupTest() {
+        open("/");
     }
 
-    @Test
-    void test() {
-        // Exercise
-        driver.get("https://bonigarcia.dev/selenium-webdriver-java/");
-        String title = driver.getTitle();
-
-        // Verify
-        System.out.println("Заголовок страницы: " + title);
-    }
 
     @AfterEach
     void teardown() {
-        driver.quit();
+        closeWebDriver();
     }
 }
