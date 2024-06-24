@@ -18,6 +18,7 @@ class BaseTest {
         Configuration.baseUrl = "https://magento.softwaretestingboard.com";
         Configuration.browser = "chrome";
         Configuration.browserSize="1200x900";
+        Configuration.holdBrowserOpen = true;
     }
 
     @BeforeEach
