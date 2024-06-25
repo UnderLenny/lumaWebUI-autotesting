@@ -5,8 +5,8 @@ import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import pages.HomePage;
-import pages.ProductCatalogPage;
+import dev.lenny.pages.HomePage;
+import dev.lenny.pages.ProductCatalogPage;
 
 public class ProductCatalogTests extends BaseTest {
 

@@ -1,11 +1,10 @@
 package tests;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
+import dev.lenny.pages.*;
 import org.junit.jupiter.api.Test;
-import pages.CartPage;
-import pages.HomePage;
-import pages.LoginPage;
-import pages.ProductCatalogPage;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,10 +17,11 @@ public class CartTests extends BaseTest {
     ProductCatalogPage productCatalogPage = new ProductCatalogPage();
     LoginPage loginPage = new LoginPage();
     HomePage homePage = new HomePage();
+    PaymentPage paymentPage = new PaymentPage();
 
     @Test
     public void addToCart() {
-        // Комментари шагов для Allure(на будущее)
+        // Комментарии шагов для Allure(на будущее)
         // Шаг 1: Добавление продукта в корзину
         productCatalogPage
                 .hoverOverGearCategory()
@@ -71,5 +71,19 @@ public class CartTests extends BaseTest {
 
         // Шаг 7: Переход на страницу офорлмения заказа
         cartPage.clickOnProccessedButton();
+
+        // Шаг 8: Выбор метода доставки
+        paymentPage.selectShippingMethod();
+
+        // Шаг 9: Переход на следующую страницу
+        paymentPage.clickNextButton();
+
+        // Шаг 10: Оформление заказа
+        paymentPage.clickPlaceOrderButton();
+
+        // Шаг 11: Проверка успешного оформления заказа
+        Selenide.Wait().until(ExpectedConditions.textToBePresentInElement(paymentPage.getMessageTextElement(), "Thank you for your purchase!"));
+        String messageText = paymentPage.getMessageText();
+        assertEquals("Thank you for your purchase!", messageText, "Сообщение об успешном оформлении заказа не совпадает");
     }
 }

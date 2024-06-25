@@ -1,10 +1,9 @@
-package pages;
+package dev.lenny.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public class CartPage {
@@ -16,7 +15,7 @@ public class CartPage {
     private final SelenideElement cart = $(By.xpath("//a[contains(@href, 'cart')]"));
 
     private final SelenideElement productNumberInCart = $(By.xpath("//span[contains(@data-bind, 'block')]"));
-    private final SelenideElement processedButton = $(By.xpath("//button[contains(@title, 'Proceed')]"));
+    private final SelenideElement proceedToCheckoutButton = $(By.xpath("//button[contains(@title, 'Proceed')]"));
 
 
 
@@ -53,7 +52,7 @@ public class CartPage {
     }
 
     public CartPage clickOnProccessedButton() {
-        processedButton.click();
+        proceedToCheckoutButton.click();
         return this;
     }
 
