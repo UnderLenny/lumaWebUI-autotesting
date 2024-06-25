@@ -16,7 +16,7 @@ public class UserLoginTests extends BaseTest {
 
     @Test
     public void SuccessfulAuthenticationTest() {
-        // Шаг 1: Заполнение данных для успешной аутентификации
+        // Шаг 1: Заполнение данных для аутентификации
         Map<String, String> inputValues = new HashMap<>();
         inputValues.put("email", "test@mail.ru");
         inputValues.put("password", "12345678dD");

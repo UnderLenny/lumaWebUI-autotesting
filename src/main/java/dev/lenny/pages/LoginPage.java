@@ -8,15 +8,16 @@ import java.util.Map;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LoginPage extends BasePage {
-    private final SelenideElement email = $(By.id("email"));
-    private final SelenideElement password = $(By.xpath("//input[@title='Password']"));
     private final SelenideElement submitButton = $(By.xpath("//button[@class='action login primary']"));
     private final SelenideElement errorText = $(By.xpath("//div[contains(@data-bind, 'text')]"));
 
     private final Map<String, SelenideElement> fields = new HashMap<>();
 
     public LoginPage() {
+        SelenideElement email = $(By.id("email"));
         fields.put("email", email);
+
+        SelenideElement password = $(By.xpath("//input[@title='Password']"));
         fields.put("password", password);
     }
 
