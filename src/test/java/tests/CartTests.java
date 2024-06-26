@@ -4,8 +4,9 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import dev.lenny.pages.*;
 import io.qameta.allure.*;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class CartTests extends BaseTest {
     @Test
     @DisplayName("Тест добавления товара в корзину")
     @Owner("Leonid Gevorgyan")
+    @Tag("debug")
     @Description("Этот тест проверяет, что пользователь может добавить товар в корзину.")
     public void addToCart() {
         addProductToCart();
