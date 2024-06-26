@@ -45,7 +45,7 @@ public class SubscribeTests extends BaseTest {
 
     @Step("Подготовка данных для подписки на рассылку")
     public void prepareLoginData(Map<String, String> inputValues) {
-        inputValues.put("email", "rovolis366@elahan.com");
+        inputValues.put("email", "test@elahan.com");
         inputValues.put("firstName", "TestName");
         inputValues.put("lastName", "TestSurname");
         inputValues.put("companyName", "TestCompany");
@@ -64,7 +64,9 @@ public class SubscribeTests extends BaseTest {
 
     @Step("Проверка подписки на рассылку")
     public void checkSubscribe() {
-        subscribePage.getSuccessMessage().shouldHave(text("Thank you for subscribing!"));
+        subscribePage.getSuccessMessage().shouldHave(text("Almost finished... " +
+                "We need to confirm your email address. " +
+                "To complete the subscription process, please click the link in the email we just sent you."));
     }
 
 }

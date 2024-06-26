@@ -5,6 +5,9 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ProductCatalogPage {
@@ -18,9 +21,11 @@ public class ProductCatalogPage {
     private final SelenideElement selectSortBy = $(By.xpath("//*[@id=\"sorter\"]"));
     private final SelenideElement nextPage = $$x("//*[@title='Next']").get(1); // временное решение
 
+    private final SelenideElement sortOption = $x("//option[@value='price']");
     private final SelenideElement changePriceSort = $$x("//*[@title=\"Set Descending Direction\"]").get(0);
     private final SelenideElement noResultsMessage = $(By.xpath("//div[@class='message notice']"));
 
+    private final SelenideElement addToCartButton = $x("//*[@id='product-addtocart-button']/span");
 
     public ProductCatalogPage hoverOverGearCategory() {
         gearCategory.hover();
@@ -54,9 +59,7 @@ public class ProductCatalogPage {
 
     public ProductCatalogPage clickSortByList() {
         selectSortBy.click();
-
-        $x("//option[@value='price']").click();
-
+        sortOption.click();
         return this;
     }
 
@@ -81,5 +84,9 @@ public class ProductCatalogPage {
     public ProductCatalogPage getNoResultMessage() {
         noResultsMessage.shouldBe(Condition.visible);
         return this;
+    }
+
+    public void checkAddProductButtonText() {
+        addToCartButton.shouldBe(text("Add to Cart"), Duration.ofSeconds(10));
     }
 }

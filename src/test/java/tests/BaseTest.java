@@ -24,6 +24,7 @@ class BaseTest {
     PaymentPage paymentPage;
     ProductCatalogPage productCatalogPage;
     SubscribePage subscribePage;
+    OrderPage orderPage;
 
     @BeforeAll
     static void setupClass() {
@@ -32,7 +33,7 @@ class BaseTest {
         Configuration.browser = "chrome";
         Configuration.pageLoadStrategy = "eager";
 //        Configuration.headless = true;
-        Configuration.holdBrowserOpen = true;
+//        Configuration.holdBrowserOpen = true;
         // Настройка параметров браузера
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito"); // Запуск в режиме инкогнито

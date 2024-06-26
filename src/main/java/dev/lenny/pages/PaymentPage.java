@@ -1,6 +1,8 @@
 package dev.lenny.pages;
 
 import com.codeborne.selenide.SelenideElement;
+
+import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selenide.$;
 import org.openqa.selenium.By;
 
@@ -11,17 +13,17 @@ public class PaymentPage {
     private final SelenideElement messageText = $(By.xpath("//span[@class='base']"));
 
     public PaymentPage selectShippingMethod() {
-        shippingMethodInput.click();
+        shippingMethodInput.shouldBe(exist).click();
         return this;
     }
 
     public PaymentPage clickNextButton() {
-        nextButton.click();
+        nextButton.shouldBe(exist).click();
         return this;
     }
 
     public PaymentPage clickPlaceOrderButton() {
-        placeOrderButton.click();
+        placeOrderButton.shouldBe(exist).click();
         return this;
     }
 

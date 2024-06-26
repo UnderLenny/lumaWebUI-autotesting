@@ -15,6 +15,7 @@ target/
 allure-results
 allure-report
 .allure
+mvnw
 
 ### Eclipse ###
 .apt_generated

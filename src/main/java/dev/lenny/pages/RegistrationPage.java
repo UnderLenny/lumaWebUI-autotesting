@@ -1,5 +1,6 @@
 package dev.lenny.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class RegistrationPage extends BasePage {
     }
 
     public SelenideElement getExistingEmailError() {
-        return errorText;
+        return errorText.shouldHave(Condition.text("There is already an account with this email address. If you are sure that it is your email address, click here to get your password and access your account."));
     }
 
     public RegistrationPage fillForm(Map<String, String> inputValues) {

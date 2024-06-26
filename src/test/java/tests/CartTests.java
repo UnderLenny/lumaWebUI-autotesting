@@ -46,9 +46,9 @@ public class CartTests extends BaseTest {
         cartPage.clickOnProductCard().addProductToCart();
     }
 
-    @Step("Проверка числа на кнопке корзины")
+    @Step("Проверка успешного добавления продукта в корзину")
     public void verifyProductAddedToCart() {
-        cartPage.checkNumberOnCartButton();
+        cartPage.checkSuccessAddToCartMessage();
     }
 
     @Step("Переход в корзину")
@@ -77,6 +77,7 @@ public class CartTests extends BaseTest {
         login(inputValues);
         verifyLogin();
         addProductToCart();
+        checkSuccessAddingToCart();
         goToCart();
         proceedToCheckout();
         selectShippingMethod();
@@ -111,9 +112,14 @@ public class CartTests extends BaseTest {
         assertEquals(expectedUrl, currentUrl, "URL после авторизации не совпадает с ожидаемым");
     }
 
+    @Step
+    public void checkSuccessAddingToCart() {
+        cartPage.checkSuccessAddToCartMessage();
+    }
+
     @Step("Переход на страницу оформления заказа")
     public void proceedToCheckout() {
-        cartPage.clickOnProccessedButton();
+        cartPage.clickOnProceedButton();
     }
 
     @Step("Выбор метода доставки")
