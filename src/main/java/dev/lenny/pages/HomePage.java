@@ -1,5 +1,6 @@
 package dev.lenny.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.conditions.Visible;
@@ -17,23 +18,27 @@ public class HomePage {
 
     private final SelenideElement searchField = $(By.xpath("//input[@id='search']"));
 
-    private final SelenideElement profileArrow = $$x("//*[@class='action switch']").get(0);
+    private final SelenideElement profileArrow = $$x("/html/body/div[2]/header/div[1]/div/ul/li[2]/span/button").get(1);
     private final SelenideElement profileInfoButton = $(By.xpath("//a[contains(@href, 'customer/account/')]"));
+
+    private final SelenideElement welcomeMessage = $$x("//*[@class='logged-in']").get(0);
+
     public void goToRegisterPage() {
         registerButton.click();
     }
 
-    public void goToLoginPage() {
+    public LoginPage goToLoginPage() {
         loginButton.click();
+        return new LoginPage();
     }
 
     public void searchInvalidValue(String value) {
         searchField.setValue(value).pressEnter();
     }
 
-    public HomePage goToSubscribePage() {
+    public SubscribePage goToSubscribePage() {
         subscribe.click();
-        return this;
+        return new SubscribePage();
     }
 
     public HomePage waitForPageToLoad() {
@@ -44,6 +49,10 @@ public class HomePage {
     public HomePage clickOnProfileArrow() {
         profileArrow.click();
         return this;
+    }
+
+    public void waitForWelcomeMessage() {
+        welcomeMessage.shouldBe(Condition.visible).shouldHave(Condition.text("Welcome"));
     }
 
     public HomePage goToProfilePage() {

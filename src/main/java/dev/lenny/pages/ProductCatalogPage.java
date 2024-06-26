@@ -53,7 +53,8 @@ public class ProductCatalogPage {
     }
 
     public ProductCatalogPage clickSortByList() {
-        selectSortBy.selectOptionByValue("price");
+        SelenideElement selectOption = selectSortBy.selectOptionByValue("price");
+
         return this;
     }
 

@@ -12,10 +12,10 @@ public class CartPage {
 
     private final SelenideElement productName = $(By.xpath("//span[@class='base']"));
     private final SelenideElement productNameInCart = $(By.xpath("//strong[@class='product-item-name']"));
-    private final SelenideElement cart = $(By.xpath("//a[contains(@href, 'cart')]"));
+    private final SelenideElement cart = $(By.xpath("//a[contains(@href, 'https://magento.softwaretestingboard.com/checkout/cart/')]"));
 
     private final SelenideElement productNumberInCart = $(By.xpath("//span[contains(@data-bind, 'block')]"));
-    private final SelenideElement proceedToCheckoutButton = $(By.xpath("//button[contains(@title, 'Proceed')]"));
+    private final SelenideElement proceedToCheckoutButton = $(By.xpath("//button[contains(@title, 'Proceed to Checkout')]"));
 
 
 
