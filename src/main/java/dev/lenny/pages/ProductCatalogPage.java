@@ -53,7 +53,9 @@ public class ProductCatalogPage {
     }
 
     public ProductCatalogPage clickSortByList() {
-        SelenideElement selectOption = selectSortBy.selectOptionByValue("price");
+        selectSortBy.click();
+
+        $x("//option[@value='price']").click();
 
         return this;
     }

@@ -2,15 +2,14 @@ package tests;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import dev.lenny.pages.HomePage;
+import dev.lenny.pages.ProductCatalogPage;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import dev.lenny.pages.HomePage;
-import dev.lenny.pages.ProductCatalogPage;
 
 @Epic("Тестирование каталога товаров")
 public class ProductCatalogTests extends BaseTest {
@@ -68,6 +67,7 @@ public class ProductCatalogTests extends BaseTest {
     public void sortProductsByHighPrice() {
         openProductCatalog();
         setPriceSortAscending();
+
         ElementsCollection productPrices = productCatalogPage.getProductPrices();
         checkProductPricesByAscending(productPrices);
     }
