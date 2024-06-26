@@ -33,7 +33,7 @@ public class UserRegistrationTests extends BaseTest {
         Map<String, String> inputValues = new HashMap<>();
         inputValues.put("firstName", "TestName");
         inputValues.put("lastName", "TestSurname");
-        inputValues.put("email", "test5@kuzstu.ru");
+        inputValues.put("email", "test6@kuzstu.ru");
         inputValues.put("password", "12345678qQ!");
         inputValues.put("confirmPassword", "12345678qQ!");
 
