@@ -40,9 +40,8 @@ public class CartTests extends BaseTest {
 
     @Step("Добавление продукта в корзину")
     public void addProductToCart() {
-        productCatalogPage
-                .hoverOverGearCategory()
-                .clickBagsSubcategory();
+        productCatalogPage = homePage.hoverOverGearCategory();
+        productCatalogPage = homePage.clickBagsSubcategory();
         cartPage.clickOnProductCard().addProductToCart();
     }
 
@@ -84,63 +83,5 @@ public class CartTests extends BaseTest {
         proceedToNextPage();
         placeOrder();
         verifyOrderSuccess();
-    }
-
-    @Step("Подготовка данных для входа")
-    public void prepareLoginData(Map<String, String> inputValues) {
-
-        inputValues.put("email", "test@mail.ru");
-        inputValues.put("password", "12345678dD");
-    }
-
-    @Step("Переход на страницу входа")
-    public void goToLoginPage() {
-        homePage.goToLoginPage();
-    }
-
-    @Step("Ввод данных и отправка формы")
-    public void login(Map<String, String> inputValues) {
-        loginPage
-                .fillForm(inputValues)
-                .submit();
-    }
-
-    @Step("Проверка URL после успешного входа")
-    public void verifyLogin() {
-        String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
-        String expectedUrl = "https://magento.softwaretestingboard.com/";
-        assertEquals(expectedUrl, currentUrl, "URL после авторизации не совпадает с ожидаемым");
-    }
-
-    @Step
-    public void checkSuccessAddingToCart() {
-        cartPage.checkSuccessAddToCartMessage();
-    }
-
-    @Step("Переход на страницу оформления заказа")
-    public void proceedToCheckout() {
-        cartPage.clickOnProceedButton();
-    }
-
-    @Step("Выбор метода доставки")
-    public void selectShippingMethod() {
-        paymentPage.selectShippingMethod();
-    }
-
-    @Step("Переход на следующую страницу")
-    public void proceedToNextPage() {
-        paymentPage.clickNextButton();
-    }
-
-    @Step("Оформление заказа")
-    public void placeOrder() {
-        paymentPage.clickPlaceOrderButton();
-    }
-
-    @Step("Проверка успешного оформления заказа")
-    public void verifyOrderSuccess() {
-        Selenide.Wait().until(ExpectedConditions.textToBePresentInElement(paymentPage.getMessageTextElement(), "Thank you for your purchase!"));
-        String messageText = paymentPage.getMessageText();
-        assertEquals("Thank you for your purchase!", messageText, "Сообщение об успешном оформлении заказа не совпадает");
     }
 }

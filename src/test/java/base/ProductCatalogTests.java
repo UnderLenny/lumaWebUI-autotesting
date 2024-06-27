@@ -13,10 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Epic("Тестирование каталога товаров")
 public class ProductCatalogTests extends BaseTest {
-
-    HomePage homePage = new HomePage();
-    ProductCatalogPage productCatalogPage = new ProductCatalogPage();
-
     @Feature("Тестирование фильтрации товаров")
     @Story("Пользователь фильтрует товары по цене")
     @Severity(SeverityLevel.NORMAL)
@@ -34,9 +30,8 @@ public class ProductCatalogTests extends BaseTest {
 
     @Step("Открытие каталога товаров")
     public void openProductCatalog() {
-        productCatalogPage
-                .hoverOverGearCategory()
-                .clickBagsSubcategory();
+        productCatalogPage = homePage.hoverOverGearCategory();
+        productCatalogPage = homePage. clickBagsSubcategory();
     }
 
     @Step("Установка фильтра по цене")
