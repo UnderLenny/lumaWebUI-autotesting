@@ -34,7 +34,7 @@ public class ProductCatalogPage {
 
     @Step("Клик по диапазону цен")
     public void clickPriceRange() {
-        priceRange.click();
+        priceRange.shouldBe(Condition.clickable).click();
     }
 
     @Step("Получение цен товаров")
