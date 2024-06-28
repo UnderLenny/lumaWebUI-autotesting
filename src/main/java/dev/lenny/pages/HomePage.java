@@ -5,7 +5,6 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
-import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -19,10 +18,6 @@ public class HomePage {
 
     private final SelenideElement searchField = $x(("//input[@id='search']"));
 
-    private final SelenideElement profileArrow = $$x("/html/body/div[2]/header/div[1]/div/ul/li[2]/span/button").get(1);
-    private final SelenideElement profileInfoButton = $x(("//a[contains(@href, 'customer/account/')]"));
-
-    private final SelenideElement welcomeMessage = $$x("//*[@class='logged-in']").get(0);
     private final SelenideElement hotSellersText = $x("//h2[contains(@class, 'title')]");
 
     private final SelenideElement noResultsMessage = $x("//div[@class='message notice']");
@@ -49,7 +44,7 @@ public class HomePage {
     }
 
     public HomePage hoverOverGearCategory() {
-        gearCategory.shouldBe(Condition.visible).hover();
+        gearCategory.shouldBe(visible).hover();
         return this;
     }
 
@@ -60,25 +55,6 @@ public class HomePage {
 
     public String getHotSellersText() {
         return hotSellersText.getText();
-    }
-
-    public HomePage waitForPageToLoad() {
-        profileArrow.shouldBe(visible, enabled);
-        return this;
-    }
-
-    public HomePage clickOnProfileArrow() {
-        profileArrow.click();
-        return this;
-    }
-
-    public void waitForWelcomeMessage() {
-        welcomeMessage.shouldBe(Condition.visible).shouldHave(Condition.text("Welcome"));
-    }
-
-    public ProfilePage goToProfilePage() {
-        profileInfoButton.click();
-        return new ProfilePage();
     }
 
     @Step("Открытие каталога товаров")

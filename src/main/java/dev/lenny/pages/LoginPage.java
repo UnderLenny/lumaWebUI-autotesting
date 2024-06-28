@@ -34,9 +34,4 @@ public class LoginPage {
     public String getErrorText() {
         return errorMessage.shouldBe(Condition.visible).getText();
     }
-
-//    public void waitErrorText() {
-//        errorMessage.should(Condition.exist, Duration.ofSeconds(13));
-//        errorMessage.should(Condition.visible, Duration.ofSeconds(13));
-//    }
 }

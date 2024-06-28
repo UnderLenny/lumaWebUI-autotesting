@@ -5,12 +5,8 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
-import java.util.ArrayList;
-
-import static com.codeborne.selenide.Selenide.executeJavaScript;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static dev.lenny.helpers.Constants.*;
 
 public class SubscribePage {
@@ -35,12 +31,6 @@ public class SubscribePage {
     public void clickSubscribeButton() {
         subscribeButton.shouldBe(Condition.visible).click();
     }
-
-//    @Step("Переключение на новую вкладку")
-//    public void switchToNewTab() {
-//        ArrayList<String> tabs = new ArrayList<>(getWebDriver().getWindowHandles());
-//        getWebDriver().switchTo().window(tabs.get(1));
-//    }
 
     public String getSuccessMessage() {
         return successMessage.shouldBe(Condition.visible).getText();

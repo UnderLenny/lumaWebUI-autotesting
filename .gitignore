@@ -16,6 +16,7 @@ allure-results
 allure-report
 .allure
 mvnw
+.mvn
 
 ### Eclipse ###
 .apt_generated

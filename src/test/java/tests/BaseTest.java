@@ -2,8 +2,6 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import dev.lenny.extensions.ResultAttacher;
-import dev.lenny.helpers.Constants;
-import dev.lenny.helpers.Helpers;
 import dev.lenny.pages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -35,7 +33,7 @@ class BaseTest {
         Configuration.browser = "chrome";
         Configuration.pageLoadStrategy = "eager";
 //        Configuration.headless = true;
-        Configuration.holdBrowserOpen = true;
+//        Configuration.holdBrowserOpen = true;
         // Настройка параметров браузера
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito"); // Запуск в режиме инкогнито
