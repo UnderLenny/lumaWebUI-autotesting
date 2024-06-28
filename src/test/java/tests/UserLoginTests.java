@@ -4,16 +4,11 @@ import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import dev.lenny.pages.HomePage;
-import dev.lenny.pages.LoginPage;
 
-import java.util.HashMap;
-import java.util.Map;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Тестирование авторизации пользователя")
 public class UserLoginTests extends BaseTest {
-    LoginPage loginPage = new LoginPage();
-    HomePage homePage = new HomePage();
 
     @Feature("Тестирование авторизации пользователя с корректными данными")
     @Story("Пользователь должен успешно авторизоваться с валидными данными")
@@ -24,31 +19,11 @@ public class UserLoginTests extends BaseTest {
     @Owner("Leonid Gevorgyan")
     @Description("Этот тест проверяет, что пользователь может успешно авторизоваться с валидными данными.")
     public void SuccessfulAuthenticationTest() {
-        Map<String, String> inputValues = new HashMap<>();
-        inputValues.put("email", "test@mail.ru");
-        inputValues.put("password", "12345678dD");
-
-        goToLoginPage();
-        fillFormAndSubmit(inputValues);
-        checkCurrentUrl();
-    }
-
-    @Step("Переход на страницу логина")
-    public void goToLoginPage() {
         loginPage = homePage.goToLoginPage();
-    }
+        loginPage.fillAuthForm();
+        loginPage.submit();
 
-    @Step("Заполнение формы авторизации и отправка")
-    public void fillFormAndSubmit(Map<String, String> inputValues) {
-        loginPage
-                .fillForm(inputValues)
-                .submit();
-    }
-
-    @Step("Проверка текущего Url")
-    public void checkCurrentUrl() {
-        String expectedBaseUrl = "https://magento.softwaretestingboard.com/";
-        helpers.checkCurrentUrl(expectedBaseUrl);
+        assertEquals("Hot Sellers", homePage.getHotSellersText());
     }
 
     @Feature("Тестирование авторизации пользователя с некорректным паролем")
@@ -60,20 +35,12 @@ public class UserLoginTests extends BaseTest {
     @Owner("Leonid Gevorgyan")
     @Description("Этот тест проверяет, что пользователь не сможет войти в аккаунт с некорректным паролем.")
     public void loginWithIncorrectPasswordTest() {
-        Map<String, String> inputValues = new HashMap<>();
-        inputValues.put("email", "test@mail.ru");
-        inputValues.put("password", "invalid");
+        loginPage = homePage.goToLoginPage();
+        loginPage.fillIncorrectAuthForm();
+        loginPage.submit();
 
-        goToLoginPage();
-        fillFormAndSubmit(inputValues);
-        checkError();
+        assertEquals("The account sign-in was incorrect or your account is disabled temporarily." +
+                " Please wait and try again later.", loginPage.getErrorText());
     }
 
-    @Step("Проверка текста ошибки")
-    public void checkError() {
-        String expectedText = "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.";
-        String actualText = loginPage.getErrorText();
-        System.out.println(actualText);
-        helpers.checkErrorText(expectedText, actualText);
-    }
 }

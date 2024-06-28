@@ -1,38 +1,34 @@
 package dev.lenny.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selenide.$;
-import org.openqa.selenium.By;
 
 public class PaymentPage {
     private final SelenideElement shippingMethodInput = $(By.xpath("//input[@name='ko_unique_1']"));
-    private final SelenideElement nextButton =$(By.xpath("//button[contains(@class, 'button')]"));
+    private final SelenideElement nextButton = $(By.xpath("//button[contains(@class, 'button')]"));
     private final SelenideElement placeOrderButton = $(By.xpath("//button[@title='Place Order']"));
     private final SelenideElement messageText = $(By.xpath("//span[@class='base']"));
 
-    public PaymentPage selectShippingMethod() {
+    @Step("Выбор метода доставки")
+    public void selectShippingMethod() {
         shippingMethodInput.shouldBe(exist).click();
-        return this;
     }
 
-    public PaymentPage clickNextButton() {
+    @Step("Переход на следующую страницу")
+    public void proceedToNextPage() {
         nextButton.shouldBe(exist).click();
-        return this;
     }
 
-    public PaymentPage clickPlaceOrderButton() {
+    @Step("Оформление заказа")
+    public void placeOrder() {
         placeOrderButton.shouldBe(exist).click();
-        return this;
     }
 
     public String getMessageText() {
         return messageText.getText();
     }
-
-    public SelenideElement getMessageTextElement() {
-        return messageText;
-    }
-
 }

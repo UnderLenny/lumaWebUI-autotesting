@@ -2,55 +2,47 @@ package dev.lenny.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import java.util.HashMap;
-import java.util.Map;
 
+import java.util.ArrayList;
+
+import static com.codeborne.selenide.Selenide.executeJavaScript;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static dev.lenny.helpers.Constants.*;
 
-public class SubscribePage extends BasePage {
-    private final SelenideElement modalWindowData = $(By.xpath("//button[@aria-label='Соглашаюсь']"));
+public class SubscribePage {
     private final SelenideElement subscribeButton = $(By.xpath("//input[@value='Subscribe']"));
     private final SelenideElement successMessage = $(By.xpath("//div[@id='mce-success-response']"));
+    private final SelenideElement emailInput = $x(("//input[@id='mce-EMAIL']"));
+    private final SelenideElement firstNameInput = $x(("//input[@id='mce-FNAME']"));
+    private final SelenideElement lastNameInput = $x(("//input[@id='mce-LNAME']"));
+    private final SelenideElement companyNameInput = $x(("//input[@id='mce-COMPANY']"));
+    private final SelenideElement positionInput = $x(("//input[@id='mce-POSITION']"));
 
-    private final Map<String, SelenideElement> fields = new HashMap<>();
-
-    public SubscribePage() {
-        SelenideElement emailInput = $(By.xpath("//input[@type='email']"));
-        fields.put("email", emailInput);
-
-        SelenideElement firstNameInput = $(By.xpath("//*[@id='mce-FNAME']"));
-        fields.put("firstName", firstNameInput);
-
-        SelenideElement lastNameInput = $(By.xpath("//*[@id='mce-LNAME']"));
-        fields.put("lastName", lastNameInput);
-
-        SelenideElement companyNameInput = $(By.xpath("//*[@id='mce-COMPANY']"));
-        fields.put("companyName", companyNameInput);
-
-        SelenideElement positionInput = $(By.xpath("//*[@id='mce-POSITION']"));
-        fields.put("position", positionInput);
+    @Step("Заполнение формы подписки на рассылку")
+    public void fillSubscribeForm() {
+        emailInput.shouldBe(Condition.visible).scrollTo().setValue(SUBSCRIBE_EMAIL);
+        firstNameInput.shouldBe(Condition.visible).setValue(FIRSTNAME);
+        lastNameInput.shouldBe(Condition.visible).setValue(LASTNAME);
+        companyNameInput.shouldBe(Condition.visible).setValue(COMPANY);
+        positionInput.shouldBe(Condition.visible).setValue(STATE);
     }
 
-    public SelenideElement getModalWindow() {
-        return modalWindowData;
-    }
-    public SubscribePage acceptModalWindow() {
-        modalWindowData.shouldBe(Condition.visible).click();
-        return this;
+    @Step("Нажатие на кнопку подписки на рассылку")
+    public void clickSubscribeButton() {
+        subscribeButton.shouldBe(Condition.visible).click();
     }
 
-    public SubscribePage clickSubscribeButton() {
-        subscribeButton.click();
-        return this;
-    }
+//    @Step("Переключение на новую вкладку")
+//    public void switchToNewTab() {
+//        ArrayList<String> tabs = new ArrayList<>(getWebDriver().getWindowHandles());
+//        getWebDriver().switchTo().window(tabs.get(1));
+//    }
 
-    public SelenideElement getSuccessMessage() {
-        return successMessage;
-    }
-
-    public SubscribePage fillForm(Map<String, String> inputValues) {
-        fillForm(inputValues, fields);
-        return this;
+    public String getSuccessMessage() {
+        return successMessage.shouldBe(Condition.visible).getText();
     }
 }

@@ -1,37 +1,25 @@
 package dev.lenny.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.Selenide;
+import io.qameta.allure.Step;
 import com.codeborne.selenide.WebDriverRunner;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
-
-import java.time.Duration;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CartPage {
-    private final SelenideElement productCard = $(By.xpath("//li[@class='item product product-item'][1]"));
-    private final SelenideElement addToCartButton = $(By.xpath("//button[@title='Add to Cart']"));
+    private final SelenideElement productName = $x("//span[@class='base']");
+    private final SelenideElement productNameInCart = $x("//strong[@class='product-item-name']");
+    private final SelenideElement successAddToCartMessage = $x("//div[contains(@class, 'success')]");
 
-    private final SelenideElement productName = $(By.xpath("//span[@class='base']"));
-    private final SelenideElement productNameInCart = $(By.xpath("//strong[@class='product-item-name']"));
-    private final SelenideElement cart = $(By.xpath("//a[contains(@data-bind, 'minicart')]"));
-
-    private final SelenideElement productNumberInCart = $(By.xpath("//span[contains(@data-bind, 'block')]"));
-    private final SelenideElement proceedToCheckoutButton = $(By.xpath("//*[@id='top-cart-btn-checkout']"));
-
-    private final SelenideElement successAddToCartMessage= $x("//div[contains(@class, 'success')]");
-
-
-    public SelenideElement getProductCard() {
-        return productCard;
+    @Step("Проверка успешного добавления продукта в корзину")
+    public void verifyProductAddedToCart() {
+        successAddToCartMessage.shouldBe(Condition.visible).isDisplayed();
     }
 
-    public String getProductName() {
+    @Step("Проверка названия продукта в корзине")
+    public String getProductNameFromCatalog() {
         return productName.getText();
     }
 
@@ -39,29 +27,15 @@ public class CartPage {
         return productNameInCart.getText();
     }
 
-    public CartPage clickOnProductCard() {
-        productCard.click();
-        return this;
+    @Step("Проверка успешного входа")
+    public void verifyLogin() {
+        String currentUrl = WebDriverRunner.getWebDriver().getCurrentUrl();
+        String expectedUrl = "https://magento.softwaretestingboard.com/";
+        assertEquals(expectedUrl, currentUrl, "URL после авторизации не совпадает с ожидаемым");
     }
 
-    public CartPage addProductToCart() {
-        addToCartButton.shouldBe(exist).click();
-        return this;
+    @Step("Проверка успешного добавления продукта в корзину")
+    public void checkSuccessAddingToCart() {
+        successAddToCartMessage.shouldBe(Condition.visible).isDisplayed();
     }
-
-    public CartPage clickOnCart() {
-        cart.shouldBe(exist).click();
-        return this;
-    }
-
-    public CartPage clickOnProceedButton() {
-        proceedToCheckoutButton.shouldBe(exist).click();
-        return new CartPage();
-    }
-
-    public CartPage checkSuccessAddToCartMessage() {
-        successAddToCartMessage.shouldBe(visible).isDisplayed();
-        return new CartPage();
-    }
-
 }

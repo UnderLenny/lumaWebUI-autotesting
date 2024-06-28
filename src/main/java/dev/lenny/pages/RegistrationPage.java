@@ -2,42 +2,52 @@ package dev.lenny.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
+import static dev.lenny.helpers.Constants.*;
 
-public class RegistrationPage extends BasePage {
-    private final SelenideElement firstName = $(By.id("firstname"));
-    private final SelenideElement lastName = $(By.id("lastname"));
-    private final SelenideElement email = $(By.id("email_address"));
-    private final SelenideElement password = $(By.id("password"));
-    private final SelenideElement confirmPassword = $(By.id("password-confirmation"));
-    private final SelenideElement submitButton = $(By.xpath("//button[@title='Create an Account']"));
-    private final SelenideElement errorText = $(By.xpath("//div[contains(@data-bind, 'text')]"));
+public class RegistrationPage {
+    private final SelenideElement firstNameInput = $(By.id("firstname"));
+    private final SelenideElement lastNameInput = $(By.id("lastname"));
+    private final SelenideElement emailInput = $(By.id("email_address"));
+    private final SelenideElement passwordInput = $(By.id("password"));
+    private final SelenideElement confirmPasswordInput = $(By.id("password-confirmation"));
+    private final SelenideElement submitButton = $x(("//button[@title='Create an Account']"));
+    private final SelenideElement errorText = $x(("//div[contains(@data-bind, 'text')]"));
 
-    private final Map<String, SelenideElement> fields = new HashMap<>();
-
-    public RegistrationPage() {
-        fields.put("firstName", firstName);
-        fields.put("lastName", lastName);
-        fields.put("email", email);
-        fields.put("password", password);
-        fields.put("confirmPassword", confirmPassword);
+    @Step("Заполнение формы регистрации(Имя, фамилия, пароль)")
+    public void fillRegistrationForm() {
+        firstNameInput.setValue(FIRSTNAME);
+        lastNameInput.setValue(LASTNAME);
+        emailInput.setValue(NEW_EMAIL);
+        passwordInput.setValue(PASSWORD);
+        confirmPasswordInput.setValue(PASSWORD);
     }
 
-    public RegistrationPage submit() {
+    @Step("Ввод правильной почты")
+    public void fillEmailInForm() {
+        emailInput.setValue(NEW_EMAIL);
+    }
+
+    @Step("Ввод неправильной почты")
+    public void fillIncorrectEmailInForm() {
+        emailInput.setValue(INCORRECT_EMAIL);
+    }
+
+    @Step("Нажатие на кнопку 'Create an Account'")
+    public ProfilePage submit() {
         submitButton.click();
-        return this;
+        return new ProfilePage();
     }
 
-    public SelenideElement getExistingEmailError() {
-        return errorText.shouldHave(Condition.text("There is already an account with this email address. If you are sure that it is your email address, click here to get your password and access your account."));
+    @Step("Проверка сообщения об ошибке регистрации")
+    public String getExistingEmailError() {
+        return errorText.shouldBe(Condition.visible).getText();
     }
 
-    public RegistrationPage fillForm(Map<String, String> inputValues) {
-        fillForm(inputValues, fields);
-        return this;
-    }
 }

@@ -2,6 +2,7 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import dev.lenny.extensions.ResultAttacher;
+import dev.lenny.helpers.Constants;
 import dev.lenny.helpers.Helpers;
 import dev.lenny.pages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -17,14 +18,15 @@ import static com.codeborne.selenide.Selenide.open;
 @ExtendWith(ResultAttacher.class)
 class BaseTest {
     HomePage homePage = new HomePage();
-    Helpers helpers = new Helpers();
     CartPage cartPage;
-    ChangeProfileDataPage changeProfileDataPage;
     LoginPage loginPage;
+    RegistrationPage registrationPage;
     PaymentPage paymentPage;
     ProductCatalogPage productCatalogPage;
+    ProductPage productPage;
     SubscribePage subscribePage;
     OrderPage orderPage;
+    ProfilePage profilePage;
 
     @BeforeAll
     static void setupClass() {
@@ -33,7 +35,7 @@ class BaseTest {
         Configuration.browser = "chrome";
         Configuration.pageLoadStrategy = "eager";
 //        Configuration.headless = true;
-//        Configuration.holdBrowserOpen = true;
+        Configuration.holdBrowserOpen = true;
         // Настройка параметров браузера
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito"); // Запуск в режиме инкогнито

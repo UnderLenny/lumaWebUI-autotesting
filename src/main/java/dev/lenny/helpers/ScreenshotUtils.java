@@ -13,7 +13,7 @@ public class ScreenshotUtils {
         return ((TakesScreenshot) WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
-    @Attachment(value = "DOM Tree", type = "text/html")
+    @Attachment(value = "DOM Tree", type = "text/xml")
     public static String attachDomTree() {
         return WebDriverRunner.getWebDriver().getPageSource();
     }

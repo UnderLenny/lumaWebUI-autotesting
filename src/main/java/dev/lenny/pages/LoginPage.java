@@ -2,44 +2,41 @@ package dev.lenny.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
+import io.qameta.allure.Step;
+import static com.codeborne.selenide.Selenide.$x;
+import static dev.lenny.helpers.Constants.*;
 
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
+public class LoginPage {
+    private final SelenideElement submitButton = $x(("//button[@class='action login primary']"));
+    private final SelenideElement errorMessage = $x(("//div[contains(@data-bind, 'text')]"));
+    private final SelenideElement emailInput = $x(("//input[@title='Email']"));
+    private final SelenideElement passwordInput = $x(("//input[@title='Password']"));
 
-import static com.codeborne.selenide.Selenide.$;
-
-public class LoginPage extends BasePage {
-    private final SelenideElement submitButton = $(By.xpath("//button[@class='action login primary']"));
-    private final SelenideElement errorMessage = $(By.xpath("//div[contains(@data-bind, 'text')]"));
-
-    private final Map<String, SelenideElement> fields = new HashMap<>();
-
-    public LoginPage() {
-        SelenideElement email = $(By.id("email"));
-        fields.put("email", email);
-
-        SelenideElement password = $(By.xpath("//input[@title='Password']"));
-        fields.put("password", password);
+    @Step("Заполнение формы авторизации(Email, пароль)")
+    public void fillAuthForm() {
+        emailInput.setValue(AUTH_EMAIL);
+        passwordInput.setValue(CORRECT_PASSWORD);
     }
 
-    public LoginPage submit() {
+    @Step("Заполнение формы некорректными данными")
+    public void fillIncorrectAuthForm() {
+        emailInput.setValue(INCORRECT_EMAIL);
+        passwordInput.setValue(INVALID_PASSWORD);
+    }
+
+    @Step("Нажатие на кнопку 'Sign In'")
+    public HomePage submit() {
         submitButton.click();
-        return this;
+        return new HomePage();
     }
 
+    @Step("Получение текста ошибки")
     public String getErrorText() {
-        return errorMessage.should(Condition.visible).getText();
+        return errorMessage.shouldBe(Condition.visible).getText();
     }
 
-    public void waitErrorText() {
-        errorMessage.should(Condition.exist, Duration.ofSeconds(13));
-        errorMessage.should(Condition.visible, Duration.ofSeconds(13));
-    }
-
-    public LoginPage fillForm(Map<String, String> inputValues) {
-        fillForm(inputValues, fields);
-        return this;
-    }
+//    public void waitErrorText() {
+//        errorMessage.should(Condition.exist, Duration.ofSeconds(13));
+//        errorMessage.should(Condition.visible, Duration.ofSeconds(13));
+//    }
 }
